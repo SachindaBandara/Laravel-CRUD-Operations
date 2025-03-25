@@ -3,15 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Employee;
+
+use function PHPUnit\Framework\returnSelf;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    protected $employee;
+
+    public function __construct()
+    {
+        $this->employee = new Employee();
+    }
+
     public function index()
     {
-        //
+        $response['employees'] = $this->employee->all();
+        return view('pages.index')->with($response);
     }
 
     /**
@@ -27,7 +36,8 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->employee->create($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -43,7 +53,8 @@ class EmployeeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $response['employee'] = $this->employee->find($id);
+        return view('page.edit')->with($response);
     }
 
     /**
@@ -51,7 +62,9 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $employee = $this->employee->find($id);
+        $employee->update(array_merge($employee->toArray(), $request->toArray()));
+        return redirect('employee');
     }
 
     /**
@@ -59,6 +72,8 @@ class EmployeeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $employee = $this->employee->find($id);
+        $employee->delete();
+        return redirect('employee');
     }
 }
