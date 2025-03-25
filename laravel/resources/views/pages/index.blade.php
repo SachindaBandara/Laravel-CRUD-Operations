@@ -1,4 +1,4 @@
-@extends('layouts')
+@extends('layouts.app')
 @section('content')
 
 <div class="container">
@@ -36,7 +36,7 @@
                 <table class="table table-bordered table-hover shadow-sm text-center">
                     <thead class="bg-dark text-white">
                         <tr>
-                            <th>#</th>
+                            <th>Id</th>
                             <th>Employee Name</th>
                             <th>DOB</th>
                             <th>Phone</th>

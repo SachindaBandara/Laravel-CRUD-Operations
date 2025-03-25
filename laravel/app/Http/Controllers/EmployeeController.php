@@ -54,7 +54,7 @@ class EmployeeController extends Controller
     public function edit(string $id)
     {
         $response['employee'] = $this->employee->find($id);
-        return view('page.edit')->with($response);
+        return view('pages.edit')->with($response);
     }
 
     /**
